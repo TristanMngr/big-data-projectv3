@@ -4,9 +4,7 @@ start=`date +%s`
 
 cd all-data/meta/
 
-mongimport_path=$(which mongoimport)
-
-$mongimport_path -d big_data_project -c industries --type csv --file all_sites.csv --headerline
+mongoimport -d big_data_project -c industries --type csv --file all_sites.csv --headerline
 
 cd ../csv/
 
