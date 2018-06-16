@@ -2,7 +2,10 @@
 
 start=`date +%s`
 
-cd all-data/meta/
+#cd all-data/meta/
+cd all-data-c/meta/
+#cd fake-all-data-small/meta/
+#cd fake-all-data-big/meta/
 
 mongoimport -d big_data_project -c industries --type csv --file all_sites.csv --headerline
 
