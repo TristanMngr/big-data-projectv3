@@ -1,0 +1,4 @@
+SITE_ID,INDUSTRY,SUB_INDUSTRY,SQ_FT,LAT,LNG,TIME_ZONE,TZ_OFFSET
+6,Commercial Property,Shopping Center/Shopping Mall,161532,34.78300117,-106.8952497,America/Denver,-06:OO
+8,Commercial Property,Shopping Center/Shopping Mall,823966,40.32024733,-76.40494239,America/New_York,-04:OO
+9,Commercial Property,Corporate Office,169420,40.94675135,-74.74208726,America/New_York,-04:OO
