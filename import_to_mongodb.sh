@@ -2,9 +2,11 @@
 
 start=`date +%s`
 
-cd fake-all-data-small/meta/
+cd all-data/meta/
 
-mongoimport -d big_data_project -c industries --type csv --file all_sites.csv --headerline
+mongimport_path=$(which mongoimport)
+
+$mongimport_path -d big_data_project -c industries --type csv --file all_sites.csv --headerline
 
 cd ../csv/
 

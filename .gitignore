@@ -1,2 +1,5 @@
 env
 all-data
+true-all-data
+test.sh
+.DS_Store
