@@ -5,7 +5,11 @@
 + mongodb
 
 ## Getting started
+<<<<<<< HEAD
 + Start your server mongodb `mongod`
+=======
++ Start your server mongodb `mongodb`
+>>>>>>> 5a2960b0c64dd79b5bc6c91634926f6e661ba91f
 + Go to the folder project and type `python run_migration.py`
 
 ## Problems
