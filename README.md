@@ -1,4 +1,4 @@
-# integration to Mongodb
+# Integration to Mongodb
 
 ## Requires
 + pymongo : `python -m pip install pymongo`
