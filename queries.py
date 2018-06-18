@@ -13,7 +13,6 @@ db = client.big_data_project
 FIVE_MINUTE_TIMESTAMP = 60 * 5
 ONE_WEEK_TIMESTAMP = 60 * 60 * 24 *7
 
-
 def sum_load_curve_indutry(choosen_time):
     start = time.time()
     industry = list(db.industries.aggregate( [
@@ -33,19 +32,17 @@ def avg_load_curve_indutry(choosen_time):
         {'$unwind': '$ENERGIES'},
         {'$match': { 'ENERGIES.timestamp': { '$mod': [choosen_time, 0]} }},
         {'$group': {'_id': '$SUB_INDUSTRY', 'average': { '$avg': '$ENERGIES.value'}}}])):
-        print str(industry['_id']) + ' energy used : ' + str(industry['average']) 
+        print str(industry['_id']) + ' energy used : ' + str(industry['average'])
     end = time.time()
     print "==> Elapse time " + str((end - start))
 
 
-
-
-print 'Sum five minute timestamp'
+print 'Sum five minute timestamp wait ...'
 print sum_load_curve_indutry(FIVE_MINUTE_TIMESTAMP)
-print 'Sum one week timestamp'
+print 'Sum one week timestamp wait ...'
 print sum_load_curve_indutry(ONE_WEEK_TIMESTAMP)
 
-print 'Average sub industry five minute timestamp '
+print 'Average sub industry five minute timestamp wait ...'
 print avg_load_curve_indutry(FIVE_MINUTE_TIMESTAMP)
-print 'Average sub industry one week timestamp '
+print 'Average sub industry one week timestamp wait ...'
 print avg_load_curve_indutry(ONE_WEEK_TIMESTAMP)
