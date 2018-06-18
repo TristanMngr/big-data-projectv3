@@ -2,6 +2,7 @@ import pymongo
 import time
 
 from pymongo import MongoClient
+from datetime import datetime
 
 client = MongoClient('localhost', 27017)
 db = client.big_data_project
@@ -20,6 +21,18 @@ def sum_load_curve_industry(choosen_time):
     end = time.time()
     print "[TIME] the query took " + str(end-start)[:5] + "s to execute"
     return industry[0]['total'] if len(industry) >= 1 else "no industry found"
+
+def sum_load_curve_industryV2(choosen_time):
+    start = time.time()
+    query = db.industries.aggregate([
+        {'$unwind': '$ENERGIES'},
+        {'$match': { 'ENERGIES.timestamp': { '$mod': [choosen_time, 0]} }},
+        {'$group': {'_id': '$ENERGIES.timestamp', 'total_energy': { '$sum': '$ENERGIES.value'}}},
+        {'$sort': {'_id': 1}}]
+    );
+    end = time.time()
+    print "[TIME] the query took " + str(end-start)[:5] + "s to execute"
+    return list(query)
 
 def avg_load_curve_industry(choosen_time):
     start = time.time()
@@ -43,6 +56,12 @@ def print_sum(choosen_time):
     print "query started, wait..."
     print "result : " + str(sum_load_curve_industry(choosen_time))
 
+def print_sum_v2(choosen_time):
+    print "query started, wait..."
+    list = sum_load_curve_industryV2(choosen_time)
+    for item in list:
+        print "DATETIME : " + datetime.fromtimestamp(item['_id']).strftime('%Y-%m-%d %H:%M:%S')
+        print 'timestamp : ' + str(item['_id']) + ', total energy ' + str(item['total_energy'])
 
 # SIMPLE QUERIES :
 
@@ -128,11 +147,15 @@ print '\n'
 print 'Sum five minute timestamp'
 print '_____'
 print_sum(FIVE_MINUTE_TIMESTAMP)
+print '_____'
+print_sum_v2(FIVE_MINUTE_TIMESTAMP)
 print '\n'
 
 print 'Sum one week timestamp'
 print '_____'
 print_sum(ONE_WEEK_TIMESTAMP)
+print '_____'
+print_sum_v2(ONE_WEEK_TIMESTAMP)
 print '\n'
 
 print 'Average sub industry five minute timestamp'
