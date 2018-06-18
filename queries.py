@@ -145,15 +145,25 @@ print '=====> OTHER QUERIES : '
 print '\n'
 
 print 'Sum five minute timestamp'
+print 'methode 1'
 print '_____'
 print_sum(FIVE_MINUTE_TIMESTAMP)
+
+print '\n'
+
+print 'methode 2'
 print '_____'
 print_sum_v2(FIVE_MINUTE_TIMESTAMP)
 print '\n'
 
 print 'Sum one week timestamp'
+print 'methode 1'
 print '_____'
 print_sum(ONE_WEEK_TIMESTAMP)
+
+print '\n'
+
+print 'methode 2'
 print '_____'
 print_sum_v2(ONE_WEEK_TIMESTAMP)
 print '\n'
