@@ -7,7 +7,7 @@ import os
 from pymongo import MongoClient
 
 # change the value of this variable to choose the directory to work on
-DIR_PATH = "all-data"
+DIR_PATH = "fake-data"
 
 def add_energies_to_industry(industry_document_id, energy_collection, db):
     db.industries.update_one(

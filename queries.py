@@ -59,12 +59,6 @@ def sum_load_curve_indutryV2(db):
     print "Elapse time " + str((end - start))
     return total
 
-# mprint(list(db.industries.aggregate( [
-#     {'$unwind': '$ENERGIES'},
-#     {'$match': { 'ENERGIES.timestamp': { '$mod': [300, 0]} }},
-#     {'$project': {'_id': 0, 'total_energy': {'$sum': '$ENERGIES.value'}}},
-#     {'$group': {'_id': '', 'total': { '$sum': '$total_energy'}}}
-#   ])))
 
 
 def sum_load_curve_indutryV2(choosen_time):
@@ -76,34 +70,19 @@ def sum_load_curve_indutryV2(choosen_time):
         {'$group': {'_id': '', 'total': { '$sum': '$total_energy'}}}
       ]))
     end = time.time()
-    print "Elapse time " + str((end - start))
+    print "== >Elapse time " + str((end - start))
     return industry[0]['total'] if len(industry) >= 1  else "none"
 
 
-
-
-# mprint(list(db.industries.aggregate( [
-# {'$group': { '_id': '', 'total_energy': {'$sum': '$ENERGIES.value'} }}
-#  {'$project': {'_id': 0, 'total_energy': {'$sum': '$ENERGIES.value'}}},
-#  {'$sort': {'ENERGIES.timestamp': 1}},
-#  {'$match': { 'ENERGIES.timestamp': { '$mod': [300, 0]} }},
-#  {'$group': {'_id': '', 'total': { '$sum': '$total_energy'}}}
-# ])))
-
-# mprint(list(db.industries.aggregate( [
-#     {'$unwind': '$ENERGIES'},
-#     {'$sort': {'ENERGIES.timestamp': 1}}
-#   ])))
-
-
-
-
-
-
-# mprint(list(db.industries.aggregate( [
-#    { '$project': { '_id': 0,  'total_energy': {'$sum': '$ENERGIES.value'} }}
-#   ])))
-
+def avg_load_curve_indutry(choosen_time):
+    start = time.time()
+    for industry in list(db.industries.aggregate( [
+        {'$unwind': '$ENERGIES'},
+        {'$match': { 'ENERGIES.timestamp': { '$mod': [choosen_time, 0]} }},
+        {'$group': {'_id': '$SUB_INDUSTRY', 'average': { '$avg': '$ENERGIES.value'}}}])):
+        print str(industry['_id']) + ' energy used : ' + str(industry['average'])
+    end = time.time()
+    print "==> Elapse time " + str((end - start))
 
 
 
@@ -116,6 +95,8 @@ print sum_load_curve_indutryV2(300)
 # one week
 print sum_load_curve_indutryV2(60*60*24*7)
 
+
+print avg_load_curve_indutry(300)
 #
 # # version 1
 # # 5 min timestamp
