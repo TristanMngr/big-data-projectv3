@@ -44,7 +44,86 @@ def print_sum(choosen_time):
     print "result : " + str(sum_load_curve_industry(choosen_time))
 
 
+# SIMPLE QUERIES :
 
+def count_energies_by_industry():
+    print "query started, wait..."
+    query = db.industries.aggregate([
+        {'$project' : {"site_id" : "$SITE_ID", "count_energies" : {"$size" : '$ENERGIES'}}}
+    ])
+    array = list(query)
+    for item in array:
+        print "site with id " + str(item["site_id"]) + " has " + str(item["count_energies"]) + " energies"
+
+def count_energies():
+    print "query started, wait..."
+    query = db.industries.aggregate([
+        {'$project' : {"count" : {"$sum" : {"$size" : '$ENERGIES'}}}},
+        {'$group' : {'_id': '', "count" : {"$sum" : '$count'}}}
+    ])
+    array = list(query)
+    print array[0]["count"]
+
+def industries_order_by_site_id_desc():
+    print "query started, wait..."
+    query = db.industries.aggregate([
+        {'$project' : { "ENERGIES" : 0} },
+        { '$sort' : {"SITE_ID" : -1}}
+    ])
+    array = list(query)
+    for item in array:
+        print item["SITE_ID"]
+
+def get_all_commercial_properties():
+    print "query started, wait..."
+    query = db.industries.find({"INDUSTRY" : "Commercial Property"})
+    array = list(query)
+    for item in array:
+        print str(item["SITE_ID"])
+
+def count_energies_by_sub_industry():
+    print "query started, wait..."
+    query = db.industries.aggregate([
+        {'$project' : {"SUB_INDUSTRY" : '$SUB_INDUSTRY', "count" : {"$sum" : {"$size" : '$ENERGIES'}}}},
+        {'$group' : {'_id': '$SUB_INDUSTRY', "count" : {"$sum" : '$count'}}}
+    ])
+    array = list(query)
+    for item in array:
+        print item["_id"] + " has " + str(item["count"]) + " energies"
+
+
+print '=====> SIMPLE QUERIES :'
+print '\n'
+
+print 'number of energies by industry'
+print '_____'
+count_energies_by_industry()
+print '\n'
+
+print 'total number of energies'
+print '_____'
+count_energies()
+print '\n'
+
+
+print 'get industries without energies, order by SITE_ID descendant (only the SITE_ID will be printed, but everything is retrieved)'
+print '_____'
+industries_order_by_site_id_desc()
+print '\n'
+
+print 'get all industries that are Commercial Properties (only the SITE_ID will be printed, but everything is retrieved, including energies)'
+print '_____'
+get_all_commercial_properties()
+print '\n'
+
+print 'get number of energies, group by sub industry'
+print '_____'
+count_energies_by_sub_industry()
+
+print '\n'
+
+print '=====> OTHER QUERIES : '
+print '\n'
 
 print 'Sum five minute timestamp'
 print '_____'
