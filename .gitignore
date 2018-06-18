@@ -1,6 +1,7 @@
 env
 all-data-c
 true-all-data
+fake-data
 fake-all-data-big
 test.sh
 .DS_Store
