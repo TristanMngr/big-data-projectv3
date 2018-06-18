@@ -1,13 +1,14 @@
 # Integration to Mongodb
 
 ## Requires
-+ pymongo : `python -m pip install pymongo`
++ pymongo : `python -m pip install pymongo` or `pip install pymongo`
 + mongodb
 
 ## Getting started
-+ Start your server mongodb `mongod`
-+ Go to the folder project and type `python run_migration.py`
++ Clone this repository
++ Start your MongoDB server `mongod`
++ Go to the project directory and run the migration by typing `python run_migration.py`
 
 ## Problems
-+ If you can't start the script it is probably because your command `mongoimport` is not in your $PATH
-	+ go in `import_energies.sh` and `import_industries` and replace the line import by your path to run `mongoimport`
++ If you can't start the script it is probably because the command `mongoimport` is not in your $PATH
+	+ go in `import_energies.sh` and `import_industries.sh` and replace the line import by your path to run `mongoimport`
