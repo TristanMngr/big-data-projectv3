@@ -6,7 +6,8 @@
 
 ## Getting started
 + Start your server mongodb `mongod`
-+ Go to the folder project and type `python run_migration.py`
++ Go to the folder project and type `python run_migration.py` to integrate the data into MongoDB
++ run the queries with `python queries.py`
 
 ## Problems
 + If you can't start the script it is probably because your command `mongoimport` is not in your $PATH
