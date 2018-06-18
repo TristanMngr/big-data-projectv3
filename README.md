@@ -1,7 +1,7 @@
 # Integration to Mongodb
 
 ## Requires
-+ pymongo : `python -m pip install pymongo`
++ pymongo : `python -m pip install pymongo` or `pip install pymongo`
 + mongodb
 
 ## Getting started
@@ -10,5 +10,5 @@
 + run the queries with `python queries.py`
 
 ## Problems
-+ If you can't start the script it is probably because your command `mongoimport` is not in your $PATH
-	+ go in `import_energies.sh` and `import_industries` and replace the line import by your path to run `mongoimport`
++ If you can't start the script it is probably because the command `mongoimport` is not in your $PATH
+	+ go in `import_energies.sh` and `import_industries.sh` and replace the line import by your path to run `mongoimport`
